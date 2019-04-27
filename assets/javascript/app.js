@@ -43,6 +43,10 @@ $(document).ready(function () {
             });
     }
 
+    function clearGifs() {
+        $(".gif-display").empty();
+    }
+
     // function buildURL(topic, limit) {
     //     var apiURL = "http://api.giphy.com/v1/gifs/search?q=";
     //     apiURL += topic;
@@ -83,6 +87,9 @@ $(document).ready(function () {
 
     /** On-Click for topic buttons */
     $(document).on("click", ".topic-button", retrieveGifs);
+
+    /** On-Click for clear gif button */
+    $(document).on("click", ".clear-button", clearGifs);
 
     renderButtons();
 
