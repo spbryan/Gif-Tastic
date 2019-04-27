@@ -73,8 +73,65 @@ $(document).ready(function () {
         }
     }
 
+    // function displayGifsOld() {
+    //     for (var i = 0; i < gifList.length; i++) {
+    //         // var gifDiv = $("<div>");
+    //         var rating = gifList[i].rating;
+    //         // var p = $("<p>").text("Rating: " + rating);
+    //         var image = $("<img>");
+    //         image.attr("src", gifList[i].images.fixed_height.url);
+    //         // gifDiv.prepend(p);
+    //         // gifDiv.prepend(image);
+    //         $(".gif-display").prepend(image);
+    //     }
+    // }
+
     function displayGifs() {
+        var columnCtr = 1;
+        var rowDiv = "";
         for (var i = 0; i < gifList.length; i++) {
+            if (columnCtr === 1) {
+                rowDiv = $("<div>");
+                rowDiv.addClass("row");
+                $(".gif-display").append(rowDiv);
+            }
+
+            var colDiv = $("<div>");
+            colDiv.addClass("card-column");
+            colDiv.addClass("col-sm-3");
+            // colDiv.addClass("mr-3");
+            rowDiv.append(colDiv);
+
+            var cardDiv = $("<div>");
+            cardDiv.addClass("card");
+            cardDiv.addClass("mt-3");
+            // cardDiv.addClass("mr-3");
+            cardDiv.attr("style", "width: 15rem;");
+            // cardDiv.attr("style", "width: 18rem;");
+            colDiv.append(cardDiv);
+
+            var image = $("<img>");
+            image.addClass("card-img-top");
+            image.attr("src", gifList[i].images.fixed_height.url);
+            image.attr("alt", "TBD");
+            image.attr("style", "height: 70%;");
+            cardDiv.append(image);
+
+            var cardBody = $("<div>");
+            cardBody.addClass("card-body");
+            cardDiv.append(cardBody);
+
+            var rating = $("<p>");
+            rating.addClass("card-text");
+            rating.text("Rated: " + gifList[i].rating);
+            cardBody.append(rating);
+
+            ++columnCtr;
+            if(columnCtr > 4){
+                columnCtr = 1;
+            }
+
+            /*
             // var gifDiv = $("<div>");
             var rating = gifList[i].rating;
             // var p = $("<p>").text("Rating: " + rating);
@@ -82,7 +139,7 @@ $(document).ready(function () {
             image.attr("src", gifList[i].images.fixed_height.url);
             // gifDiv.prepend(p);
             // gifDiv.prepend(image);
-            $(".gif-display").prepend(image);
+            $(".gif-display").prepend(image);*/
         }
     }
 

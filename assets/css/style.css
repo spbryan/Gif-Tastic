@@ -39,4 +39,13 @@ button,
     background: #144E75; 
 }
 
+.card {
+    height: 300px;
+    /* margin: 6px 6px; */
+}
+
+/* .card-column {
+    width: 225px;
+} */
+
 /* ID Styling */
