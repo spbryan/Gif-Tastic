@@ -38,6 +38,7 @@ $(document).ready(function () {
         })
             .then(function (response) {
                 console.log(response);
+                gifList = [];
                 populateGifList(response);
                 displayGifs();
             });
@@ -67,7 +68,7 @@ $(document).ready(function () {
             indexSize = results.length - 1;
         }
 
-        for(var i=0; i < indexSize; i++) {
+        for (var i = 0; i < indexSize; i++) {
             gifList.push(results[i]);
         }
     }
@@ -82,7 +83,14 @@ $(document).ready(function () {
             // gifDiv.prepend(p);
             // gifDiv.prepend(image);
             $(".gif-display").prepend(image);
-          }
+        }
+    }
+
+    function createNewButton() {
+        event.preventDefault();
+        var topic = $("#input-topic").val().trim();
+        topicList.push(topic);
+        renderButtons();
     }
 
     /** On-Click for topic buttons */
@@ -90,6 +98,9 @@ $(document).ready(function () {
 
     /** On-Click for clear gif button */
     $(document).on("click", ".clear-button", clearGifs);
+
+    /** On-Click for new topic button */
+    $(document).on("click", ".new-button", createNewButton);
 
     renderButtons();
 

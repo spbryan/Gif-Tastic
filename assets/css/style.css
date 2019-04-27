@@ -11,6 +11,7 @@ body {
 }
 
 /* Class Styling */
+button,
 .topic-button,
 .clear-button {
     margin: 0 5px;
