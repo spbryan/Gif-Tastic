@@ -4,6 +4,11 @@
  * Date: 2019-04-27
 *********************************************/
 /* Element Styling */
+body {
+    background-image: url(../images/ocean5.jpg);
+    background-attachment: fixed;
+    background-size: cover;
+}
 
 /* Class Styling */
 .topic-button {

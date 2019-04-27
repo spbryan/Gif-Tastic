@@ -7,6 +7,7 @@
 $(document).ready(function () {
     // Global Variables
     var topicList = ["Sharks", "Whales", "Dolphins"];
+    var gifList = [];
     var apiKey = "TVW4zQpM1grLNNbe5y6eEuSnr6CD1Adm";
 
     /** This function renders Buttons for all entries in the 
@@ -22,6 +23,9 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Makes the call to the Giphy API to retrieve gifs based on topic
+     */
     function retrieveGifs() {
         var topic = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -33,8 +37,9 @@ $(document).ready(function () {
             method: "GET"
         })
             .then(function (response) {
-                var results = response.data;
                 console.log(response);
+                populateGifList(response);
+                displayGifs();
             });
     }
 
@@ -46,6 +51,37 @@ $(document).ready(function () {
     //     console.log(apiURL);
     // }
 
+    /**
+     * Grab 10 structures (or, if less than 10, the number returned) and
+     * add them to the gif list
+     * @param response 
+     */
+    function populateGifList(response) {
+        var results = response.data;
+        var indexSize = 10;
+        if (results.length < 10) {
+            indexSize = results.length - 1;
+        }
+
+        for(var i=0; i < indexSize; i++) {
+            gifList.push(results[i]);
+        }
+    }
+
+    function displayGifs() {
+        for (var i = 0; i < gifList.length; i++) {
+            // var gifDiv = $("<div>");
+            var rating = gifList[i].rating;
+            // var p = $("<p>").text("Rating: " + rating);
+            var image = $("<img>");
+            image.attr("src", gifList[i].images.fixed_height.url);
+            // gifDiv.prepend(p);
+            // gifDiv.prepend(image);
+            $(".gif-display").prepend(image);
+          }
+    }
+
+    /** On-Click for topic buttons */
     $(document).on("click", ".topic-button", retrieveGifs);
 
     renderButtons();
