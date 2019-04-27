@@ -3,50 +3,51 @@
  * Developer: Sean Bryan
  * Date: 2019-04-27
  ***********************************************/
-// Global Variables
-var funnyTopics = ["Dogs", "Cats", "Politics"];
 
-/** This function renders Buttons for all entries in the 
- * funnyTopics array */
-function renderButtons() {
-    $("#buttons-view").empty();
-    for (var i = 0; i < funnyTopics.length; i++) {
-        var button = $("<button>");
-        button.addClass("topic-button");
-        button.attr("data-name", funnyTopics[i]);
-        button.text(funnyTopics[i]);
-        $("#buttons-view").append(button);
+$(document).ready(function () {
+    // Global Variables
+    var topicList = ["Sharks", "Whales", "Dolphins"];
+    var apiKey = "TVW4zQpM1grLNNbe5y6eEuSnr6CD1Adm";
+
+    /** This function renders Buttons for all entries in the 
+     * funnyTopics array */
+    function renderButtons() {
+        $("#buttons-view").empty();
+        for (var i = 0; i < topicList.length; i++) {
+            var button = $("<button>");
+            button.addClass("topic-button");
+            button.attr("data-name", topicList[i]);
+            button.text(topicList[i]);
+            $("#buttons-view").append(button);
+        }
     }
-}
 
-function retrieveGifs() {
-    var topic = $(this).attr("data-name");
+    function retrieveGifs() {
+        var topic = $(this).attr("data-name");
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+            topic + "&api_key=" + apiKey;
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    })
-        .then(function (response) {
-            var results = response.data;
-            console.log(response);
-            // for (var i = 0; i < results.length; i++) {
-            //     var gifDiv = $("<div>");
+        $.ajax({
+            // url: buildURL(topic,"20"),
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                var results = response.data;
+                console.log(response);
+            });
+    }
 
-            //     var rating = results[i].rating;
+    // function buildURL(topic, limit) {
+    //     var apiURL = "http://api.giphy.com/v1/gifs/search?q=";
+    //     apiURL += topic;
+    //     // apiURL += "&limit=" + limit;
+    //     apiURL += "&api_key=" + apiKey;
+    //     console.log(apiURL);
+    // }
 
-            //     var p = $("<p>").text("Rating: " + rating);
+    $(document).on("click", ".topic-button", retrieveGifs);
 
-            //     var personImage = $("<img>");
-            //     personImage.attr("src", results[i].images.fixed_height.url);
+    renderButtons();
 
-            //     gifDiv.prepend(p);
-            //     gifDiv.prepend(personImage);
-
-            //     $("#gifs-appear-here").prepend(gifDiv);
-            // }
-        });
-}
-
-$(document).on("click", ".topic-button", retrieveGifs);
-
-renderButtons();
+});
