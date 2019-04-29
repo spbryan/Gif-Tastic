@@ -3,6 +3,15 @@
  * Developer: Sean Bryan
  * Date: 2019-04-27
 *********************************************/
+/* font-family: 'Wendy One', sans-serif;
+font-family: 'Schoolbell', cursive;
+font-family: 'Muli', sans-serif;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Courgette', cursive;
+font-family: 'Lobster Two', cursive;
+font-family: 'Modak', cursive;
+font-family: 'Philosopher', sans-serif; */
+
 /* Element Styling */
 body {
     background-image: url(../images/ocean5.jpg);
@@ -10,10 +19,36 @@ body {
     background-size: cover;
 }
 
+h1 {
+    font-family: 'Wendy One', sans-serif;
+    /* font-family: 'Schoolbell', cursive; */
+    /* font-family: 'Muli', sans-serif; */
+    /* font-family: 'Permanent Marker', cursive; */
+    /*font-family: 'Courgette', cursive;*/
+    /* font-family: 'Lobster Two', cursive; */
+    /* font-family: 'Modak', cursive; */  
+    /* font-family: 'Philosopher', sans-serif; */
+    color: white;
+    /* font-size: 4em; */
+    font-size: 80px;
+}
+
+h2 {
+    /* font-family: 'Wendy One', sans-serif; */
+    /* font-family: 'Schoolbell', cursive; */
+    /* font-family: 'Muli', sans-serif; */
+    /* font-family: 'Permanent Marker', cursive; */
+    /*font-family: 'Courgette', cursive;*/
+    /* font-family: 'Lobster Two', cursive; */
+    /* font-family: 'Modak', cursive; */
+    font-family: 'Philosopher', sans-serif;
+    color: white;
+    font-size: 2em;
+}
+
 /* Class Styling */
 button,
-.topic-button,
-.clear-button {
+.topic-button {
     margin: 0 5px;
     color: rgb(255, 255, 255); 
     font-size: 16px; 
@@ -31,6 +66,17 @@ button,
     display: inline-block;
 }
 
+.new-button,
+.clear-button {
+    background-image: linear-gradient(to right, rgb(124, 122, 122) 0%, rgb(167, 165, 165) 50%, grey 100%); box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+}
+
+.clear-button {
+    border-radius: 5px; 
+    height: 40px;
+    padding: 2px 20px;
+}
+
 .topic-button:hover {
     background: #1C6EA4; 
 }
@@ -44,8 +90,15 @@ button,
     /* margin: 6px 6px; */
 }
 
+.card-body {
+    text-align: center
+}
+
 /* .card-column {
     width: 225px;
 } */
 
 /* ID Styling */
+#clear-gifs {
+    text-align: right
+}
