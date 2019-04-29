@@ -48,6 +48,28 @@ $(document).ready(function () {
         $(".gif-display").empty();
     }
 
+    function addToFavorites() {
+        if($(".favorites-list").is(":hidden")) {
+            $(".favorites-list").show();
+            // var labelElement = $("<h4>");
+            // labelElement.attr("id", "favorite-header");
+            // labelElement.text("Favorites List:");
+            // $(".favorites-list").append(labelElement);
+        }
+        var id = $(this).attr("data-id");
+        var title = $(this).attr("data-title");
+        var option = $("<option>");
+        option.attr("class", "favorite-item");
+        option.attr("data-id", id);
+        option.text(title);
+        $(".favorites-list").append(option);
+    }
+
+    function getFavorite() {
+        var id = $(this).attr("data-id");
+        alert(id);
+    }
+
     // function buildURL(topic, limit) {
     //     var apiURL = "http://api.giphy.com/v1/gifs/search?q=";
     //     apiURL += topic;
@@ -88,8 +110,8 @@ $(document).ready(function () {
             var cardDiv = createCardElement(colDiv);
             createImageElement(cardDiv, gifList[i].images.fixed_height.url);
             var cardBody = createCardBody(cardDiv);
-
             displayRating(cardBody, gifList[i].rating);
+            createFavoritesButton(cardBody, gifList[i].id, gifList[i].title);
 
             ++columnCtr;
             if (columnCtr > 4) {
@@ -186,6 +208,15 @@ $(document).ready(function () {
         return cardBody;
     }
 
+    function createFavoritesButton(cardBody, id, title) {
+        var button = $("<button>");
+        button.addClass("favorite-button");
+        button.attr("data-id", id);
+        button.attr("data-title", title);
+        button.text("Add to Favorites");
+        $(cardBody).append(button);
+    }
+
     /** On-Click for topic buttons */
     $(document).on("click", ".topic-button", retrieveGifs);
 
@@ -195,6 +226,13 @@ $(document).ready(function () {
     /** On-Click for new topic button */
     $(document).on("click", ".new-button", createNewButton);
 
+    /** On-Click for favorites button */
+    $(document).on("click", ".favorite-button", addToFavorites);
+
+    /** On-Click for favorites dropdown option */
+    $(document).on("click", ".favorite-item", getFavorite);
+
+    $(".favorites-list").hide();
     renderButtons();
 
 });
