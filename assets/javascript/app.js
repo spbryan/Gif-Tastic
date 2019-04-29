@@ -73,81 +73,117 @@ $(document).ready(function () {
         }
     }
 
-    // function displayGifsOld() {
-    //     for (var i = 0; i < gifList.length; i++) {
-    //         // var gifDiv = $("<div>");
-    //         var rating = gifList[i].rating;
-    //         // var p = $("<p>").text("Rating: " + rating);
-    //         var image = $("<img>");
-    //         image.attr("src", gifList[i].images.fixed_height.url);
-    //         // gifDiv.prepend(p);
-    //         // gifDiv.prepend(image);
-    //         $(".gif-display").prepend(image);
-    //     }
-    // }
-
+    /**
+     * display retrieved gif images and details using a grid of four
+     * images per column
+     */
     function displayGifs() {
         var columnCtr = 1;
         var rowDiv = "";
         for (var i = 0; i < gifList.length; i++) {
             if (columnCtr === 1) {
-                rowDiv = $("<div>");
-                rowDiv.addClass("row");
-                $(".gif-display").append(rowDiv);
+                rowDiv = createRowElement();
             }
+            var colDiv = createColumnElement(rowDiv);
+            var cardDiv = createCardElement(colDiv);
+            createImageElement(cardDiv, gifList[i].images.fixed_height.url);
+            var cardBody = createCardBody(cardDiv);
 
-            var colDiv = $("<div>");
-            colDiv.addClass("card-column");
-            colDiv.addClass("col-sm-3");
-            // colDiv.addClass("mr-3");
-            rowDiv.append(colDiv);
-
-            var cardDiv = $("<div>");
-            cardDiv.addClass("card");
-            cardDiv.addClass("mt-3");
-            // cardDiv.addClass("mr-3");
-            cardDiv.attr("style", "width: 15rem;");
-            // cardDiv.attr("style", "width: 18rem;");
-            colDiv.append(cardDiv);
-
-            var image = $("<img>");
-            image.addClass("card-img-top");
-            image.attr("src", gifList[i].images.fixed_height.url);
-            image.attr("alt", "TBD");
-            image.attr("style", "height: 70%;");
-            cardDiv.append(image);
-
-            var cardBody = $("<div>");
-            cardBody.addClass("card-body");
-            cardDiv.append(cardBody);
-
-            var rating = $("<p>");
-            rating.addClass("card-text");
-            rating.text("Rated: " + gifList[i].rating);
-            cardBody.append(rating);
+            displayRating(cardBody, gifList[i].rating);
 
             ++columnCtr;
-            if(columnCtr > 4){
+            if (columnCtr > 4) {
                 columnCtr = 1;
             }
-
-            /*
-            // var gifDiv = $("<div>");
-            var rating = gifList[i].rating;
-            // var p = $("<p>").text("Rating: " + rating);
-            var image = $("<img>");
-            image.attr("src", gifList[i].images.fixed_height.url);
-            // gifDiv.prepend(p);
-            // gifDiv.prepend(image);
-            $(".gif-display").prepend(image);*/
         }
     }
 
+    /**
+     * Display the rating returned from the API on the card body
+     * @param cardBody 
+     * @param rating 
+     */
+    function displayRating(cardBody, rating) {
+        var ratingElement = $("<p>");
+        ratingElement.addClass("card-text");
+        ratingElement.text("Rated: " + rating);
+        cardBody.append(ratingElement);
+    }
+
+    /**
+     * Creates a button for a new topic
+     */
     function createNewButton() {
         event.preventDefault();
         var topic = $("#input-topic").val().trim();
         topicList.push(topic);
         renderButtons();
+    }
+
+    /**
+     * Creates and returns a row element to house the return gifs
+     */
+    function createRowElement() {
+        var rowDiv = $("<div>");
+        rowDiv.addClass("row");
+        $(".gif-display").append(rowDiv);
+        return rowDiv;
+    }
+
+    /**
+     * Creates, displays, and returns the column element that will 
+     * house the gif details
+     * @param rowDiv 
+     */
+    function createColumnElement(rowDiv) {
+        var colDiv = $("<div>");
+        colDiv.addClass("card-column");
+        colDiv.addClass("col-sm-3");
+        // colDiv.addClass("mr-3");
+        rowDiv.append(colDiv);
+        return colDiv;
+    }
+
+    /**
+     * Creates, displays, and returns a card element that will serve 
+     * as the wrapper for the gif image and details
+     * @param colDiv 
+     */
+    function createCardElement(colDiv) {
+        var cardDiv = $("<div>");
+        cardDiv.addClass("card");
+        cardDiv.addClass("mt-3");
+        // cardDiv.addClass("mr-3");
+        cardDiv.attr("style", "width: 15rem;");
+        // cardDiv.attr("style", "width: 18rem;");
+        colDiv.append(cardDiv);
+        return cardDiv;
+    }
+
+    /**
+     * Adds the gif from the passed url to the card element
+     * @param cardDiv 
+     * @param url 
+     */
+    function createImageElement(cardDiv, url) {
+        var image = $("<img>");
+        image.addClass("card-img-top");
+        image.attr("src", url);
+        image.attr("alt", "TBD");
+        image.attr("style", "height: 70%;");
+        cardDiv.append(image);
+    }
+
+    /**
+     * Creates, displays, and returns a card body element that will
+     * house the text detail for the gif
+     * @param cardDiv 
+     */
+    function createCardBody(cardDiv) {
+        var cardBody = $("<div>");
+        cardBody.addClass("card-body");
+        cardDiv.append(cardBody);
+        return cardBody;
     }
 
     /** On-Click for topic buttons */
