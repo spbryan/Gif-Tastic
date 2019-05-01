@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
     // Global Variables
-    var topicList = ["Sharks", "Whales", "Dolphins"];
+    var topicList = ["Sharks", "Whales", "Dolphins", "Starfish", "Stingray", "Crab"];
     var gifList = [];
     var apiKey = "TVW4zQpM1grLNNbe5y6eEuSnr6CD1Adm";
 
@@ -44,11 +44,17 @@ $(document).ready(function () {
             });
     }
 
+    /**
+     * Clears the current gif image display
+     */
     function clearGifs() {
         $(".gif-display").empty();
         $(".clear-button").hide();
     }
 
+    /**
+     * Stops and Start the annimation of a selected gif
+     */
     function startStopGif() {
         var state = $(this).attr("data-state");
 
@@ -61,13 +67,12 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * Add a selected gif to a list of favorites
+     */
     function addToFavorites() {
         if ($(".favorites-list").is(":hidden")) {
             $(".favorites-list").show();
-            // var labelElement = $("<h4>");
-            // labelElement.attr("id", "favorite-header");
-            // labelElement.text("Favorites List:");
-            // $(".favorites-list").append(labelElement);
         }
         var id = $(this).attr("data-id");
         var title = $(this).attr("data-title");
@@ -78,6 +83,9 @@ $(document).ready(function () {
         $(".favorites-list").append(option);
     }
 
+    /**
+     * Retrieves a selected favorite gif
+     */
     function getFavorite() {
         console.log(this);
         var id = $(this).attr("data-id");
@@ -223,6 +231,12 @@ $(document).ready(function () {
         return cardBody;
     }
 
+    /**
+     * Create a favorites button that will add gif to favorites list
+     * @param cardBody 
+     * @param id 
+     * @param title 
+     */
     function createFavoritesButton(cardBody, id, title) {
         var button = $("<button>");
         button.addClass("favorite-button");

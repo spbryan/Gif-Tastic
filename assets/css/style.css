@@ -21,34 +21,17 @@ body {
 
 h1 {
     font-family: 'Wendy One', sans-serif;
-    /* font-family: 'Schoolbell', cursive; */
-    /* font-family: 'Muli', sans-serif; */
-    /* font-family: 'Permanent Marker', cursive; */
-    /*font-family: 'Courgette', cursive;*/
-    /* font-family: 'Lobster Two', cursive; */
-    /* font-family: 'Modak', cursive; */  
-    /* font-family: 'Philosopher', sans-serif; */
     color: white;
-    /* font-size: 4em; */
     font-size: 80px;
 }
 
 h2 {
-    /* font-family: 'Wendy One', sans-serif; */
-    /* font-family: 'Schoolbell', cursive; */
-    /* font-family: 'Muli', sans-serif; */
-    /* font-family: 'Permanent Marker', cursive; */
-    /*font-family: 'Courgette', cursive;*/
-    /* font-family: 'Lobster Two', cursive; */
-    /* font-family: 'Modak', cursive; */
     font-family: 'Philosopher', sans-serif;
     color: white;
     font-size: 2em;
 }
 
-/* Class Styling */
-button,
-.topic-button {
+button {
     margin: 0 5px;
     color: rgb(255, 255, 255); 
     font-size: 16px; 
@@ -61,20 +44,33 @@ button,
     font-style: normal; 
     font-variant: normal; 
     text-transform: none; 
-    background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%); box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
-    border: 2px solid rgb(28, 110, 164); 
     display: inline-block;
+}
+
+/* Class Styling */
+.topic-button {
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
+    border: 2px solid rgb(28, 110, 164); 
 }
 
 .new-button,
 .clear-button {
-    background-image: linear-gradient(to right, rgb(124, 122, 122) 0%, rgb(167, 165, 165) 50%, grey 100%); box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
+    background-image: linear-gradient(to right, rgb(124, 122, 122) 0%, rgb(167, 165, 165) 50%, grey 100%); 
+    border: 2px solid black;
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
 .clear-button {
     border-radius: 5px; 
     height: 40px;
     padding: 2px 20px;
+}
+
+.favorite-button {
+    border-radius: 0px; 
+    background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);   
+    border: 2px solid rgb(28, 110, 164); 
 }
 
 .topic-button:hover {
@@ -87,16 +83,13 @@ button,
 
 .card {
     height: 300px;
-    /* margin: 6px 6px; */
+    border: 2px solid rgb(28, 110, 164); 
+    box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
 .card-body {
     text-align: center
 }
-
-/* .card-column {
-    width: 225px;
-} */
 
 /* ID Styling */
 #clear-gifs {
