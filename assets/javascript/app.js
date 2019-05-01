@@ -50,7 +50,7 @@ $(document).ready(function () {
     }
 
     function addToFavorites() {
-        if($(".favorites-list").is(":hidden")) {
+        if ($(".favorites-list").is(":hidden")) {
             $(".favorites-list").show();
             // var labelElement = $("<h4>");
             // labelElement.attr("id", "favorite-header");
@@ -143,6 +143,8 @@ $(document).ready(function () {
         var topic = $("#input-topic").val().trim();
         topicList.push(topic);
         renderButtons();
+        // Clear the textbox when done
+        $("#input-topic").val("");
     }
 
     /**
