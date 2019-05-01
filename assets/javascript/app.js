@@ -49,6 +49,18 @@ $(document).ready(function () {
         $(".clear-button").hide();
     }
 
+    function startStopGif() {
+        var state = $(this).attr("data-state");
+
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+    }
+
     function addToFavorites() {
         if ($(".favorites-list").is(":hidden")) {
             $(".favorites-list").show();
@@ -71,14 +83,6 @@ $(document).ready(function () {
         var id = $(this).attr("data-id");
         alert(id);
     }
-
-    // function buildURL(topic, limit) {
-    //     var apiURL = "http://api.giphy.com/v1/gifs/search?q=";
-    //     apiURL += topic;
-    //     // apiURL += "&limit=" + limit;
-    //     apiURL += "&api_key=" + apiKey;
-    //     console.log(apiURL);
-    // }
 
     /**
      * Grab 10 structures (or, if less than 10, the number returned) and
@@ -111,7 +115,9 @@ $(document).ready(function () {
             }
             var colDiv = createColumnElement(rowDiv);
             var cardDiv = createCardElement(colDiv);
-            createImageElement(cardDiv, gifList[i].images.fixed_height.url);
+            createImageElement(cardDiv, 
+                gifList[i].images.fixed_height.url,
+                gifList[i].images.fixed_height_still.url);
             var cardBody = createCardBody(cardDiv);
             displayRating(cardBody, gifList[i].rating);
             createFavoritesButton(cardBody, gifList[i].id, gifList[i].title);
@@ -191,12 +197,16 @@ $(document).ready(function () {
      * Adds the gif from the passed url to the card element
      * @param cardDiv 
      * @param url 
+     * @param still_url
      */
-    function createImageElement(cardDiv, url) {
+    function createImageElement(cardDiv, url, still_url) {
         var image = $("<img>");
         image.addClass("card-img-top");
+        image.attr("data-state", "animate");
         image.attr("src", url);
-        image.attr("alt", "TBD");
+        image.attr("data-animate", url);
+        image.attr("data-still", still_url)
+        image.attr("alt", "gif image");
         image.attr("style", "height: 70%;");
         cardDiv.append(image);
     }
@@ -233,6 +243,9 @@ $(document).ready(function () {
 
     /** On-Click for favorites button */
     $(document).on("click", ".favorite-button", addToFavorites);
+
+    /** On-Click to start and stop the image */
+    $(document).on("click", ".card-img-top", startStopGif);
 
     /** On-Change for favorites dropdown option */
     $(document).on("change", ".selectpicker", getFavorite);
