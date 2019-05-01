@@ -229,8 +229,8 @@ $(document).ready(function () {
     /** On-Click for favorites button */
     $(document).on("click", ".favorite-button", addToFavorites);
 
-    /** On-Click for favorites dropdown option */
-    $(document).on("click", ".favorite-item", getFavorite);
+    /** On-Change for favorites dropdown option */
+    $(document).on("change", ".selectpicker", getFavorite);
 
     $(".favorites-list").hide();
     renderButtons();
