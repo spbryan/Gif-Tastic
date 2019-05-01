@@ -46,6 +46,7 @@ $(document).ready(function () {
 
     function clearGifs() {
         $(".gif-display").empty();
+        $(".clear-button").hide();
     }
 
     function addToFavorites() {
@@ -66,6 +67,7 @@ $(document).ready(function () {
     }
 
     function getFavorite() {
+        console.log(this);
         var id = $(this).attr("data-id");
         alert(id);
     }
@@ -100,6 +102,7 @@ $(document).ready(function () {
      * images per column
      */
     function displayGifs() {
+        $(".clear-button").show();
         var columnCtr = 1;
         var rowDiv = "";
         for (var i = 0; i < gifList.length; i++) {
@@ -231,8 +234,9 @@ $(document).ready(function () {
 
     /** On-Change for favorites dropdown option */
     $(document).on("change", ".selectpicker", getFavorite);
+    // $(".selectpicker").on("change", ".favorite-item", getFavorite);
 
     $(".favorites-list").hide();
+    $(".clear-button").hide();
     renderButtons();
-
 });
