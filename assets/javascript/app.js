@@ -181,9 +181,11 @@ $(document).ready(function () {
     function createNewButton() {
         event.preventDefault();
         var topic = $("#input-topic").val().trim();
-        topicList.push(topic);
-        renderButtons();
-        $("#input-topic").val("");
+        if (topic !== "") {
+            topicList.push(topic);
+            renderButtons();
+            $("#input-topic").val("");
+        }
     }
 
     /**
