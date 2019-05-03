@@ -3,14 +3,6 @@
  * Developer: Sean Bryan
  * Date: 2019-04-27
 *********************************************/
-/* font-family: 'Wendy One', sans-serif;
-font-family: 'Schoolbell', cursive;
-font-family: 'Muli', sans-serif;
-font-family: 'Permanent Marker', cursive;
-font-family: 'Courgette', cursive;
-font-family: 'Lobster Two', cursive;
-font-family: 'Modak', cursive;
-font-family: 'Philosopher', sans-serif; */
 
 /* Element Styling */
 body {
@@ -55,13 +47,17 @@ button {
 }
 
 .new-button,
-.clear-button {
+.clear-button, 
+.show-favorite-button,
+.clear-favorite-button {
     background-image: linear-gradient(to right, rgb(124, 122, 122) 0%, rgb(167, 165, 165) 50%, grey 100%); 
     border: 2px solid black;
     box-shadow: rgb(0, 0, 0) 5px 5px 15px 5px; 
 }
 
-.clear-button {
+.clear-button,
+.show-favorite-button,
+.clear-favorite-button {
     border-radius: 5px; 
     height: 40px;
     padding: 2px 20px;

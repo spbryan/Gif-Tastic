@@ -31,7 +31,6 @@ $(document).ready(function () {
         var topic = $(this).attr("data-name");
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
             topic + "&api_key=" + apiKey;
-
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -57,7 +56,6 @@ $(document).ready(function () {
      */
     function startStopGif() {
         var state = $(this).attr("data-state");
-
         if (state === "still") {
             $(this).attr("src", $(this).attr("data-animate"));
             $(this).attr("data-state", "animate");
@@ -71,14 +69,14 @@ $(document).ready(function () {
      * Add a selected gif to a list of favorites
      */
     function addToFavorites() {
-        if ($(".favorite-button").is(":hidden")) {
-            $(".favorite-button").show();
+        if ($(".show-favorite-button").is(":hidden")) {
+            $(".show-favorite-button").show();
+            $(".clear-favorite-button").show();
         }
 
         var id = $(this).attr("data-id");
         var queryURL = "https://api.giphy.com/v1/gifs/" +
             id + "?api_key=" + apiKey;
-
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -93,14 +91,25 @@ $(document).ready(function () {
      */
     function showFavorites() {
         if (favoriteList.length > 0) {
-            console.log(favoriteList);
+            // console.log(favoriteList);
             $(".gif-display").empty();
             gifList = favoriteList;
             displayGifs();
         }
         else {
-            $(".favorite-button").hide();
+            $(".show-favorite-button").hide();
+            $(".clear-favorite-button").hide();
         }
+    }
+
+    /**
+     * Clear gifs from favorites
+     */
+    function clearFavorites() {
+        $(".gif-display").empty();
+        $(".show-favorite-button").hide();
+        $(".clear-favorite-button").hide();
+        favoriteList = [];
     }
 
     /**
@@ -119,24 +128,6 @@ $(document).ready(function () {
             gifList.push(results[i]);
         }
     }
-
-    /**
-     * Call api on each favorite ID to populate the Gif List
-     */
-    // function addFavoritesToGifList() {
-    //     gifList = [];
-    //     for (var i = 0; i < favoriteList.length; i++) {
-    //         var queryURL = "https://api.giphy.com/v1/gifs/" +
-    //         favoriteList[i] + "?api_key=" + apiKey;
-    //         $.ajax({
-    //             url: queryURL,
-    //             method: "GET"
-    //         })
-    //             .then(function (response) {
-    //                 gifList.push(response.data);
-    //             });
-    //     }
-    // }
 
     /**
      * display retrieved gif images and details using a grid of four
@@ -186,7 +177,6 @@ $(document).ready(function () {
         var topic = $("#input-topic").val().trim();
         topicList.push(topic);
         renderButtons();
-        // Clear the textbox when done
         $("#input-topic").val("");
     }
 
@@ -209,7 +199,6 @@ $(document).ready(function () {
         var colDiv = $("<div>");
         colDiv.addClass("card-column");
         colDiv.addClass("col-sm-3");
-        // colDiv.addClass("mr-3");
         rowDiv.append(colDiv);
         return colDiv;
     }
@@ -223,9 +212,7 @@ $(document).ready(function () {
         var cardDiv = $("<div>");
         cardDiv.addClass("card");
         cardDiv.addClass("mt-3");
-        // cardDiv.addClass("mr-3");
         cardDiv.attr("style", "width: 15rem;");
-        // cardDiv.attr("style", "width: 18rem;");
         colDiv.append(cardDiv);
         return cardDiv;
     }
@@ -293,11 +280,11 @@ $(document).ready(function () {
     /** On-Click for show favorites button */
     $(document).on("click", ".show-favorite-button", showFavorites);
 
-    /** On-Change for favorites dropdown option */
-    // $(document).on("change", ".selectpicker", getFavorite);
-    // $(".selectpicker").on("change", ".favorite-item", getFavorite);
+    /** On-Click for show favorites button */
+    $(document).on("click", ".clear-favorite-button", clearFavorites);
 
-    $(".favorite-button").hide();
+    $(".show-favorite-button").hide();
+    $(".clear-favorite-button").hide();
     $(".clear-button").hide();
     renderButtons();
 });
