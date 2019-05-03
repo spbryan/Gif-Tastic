@@ -39,7 +39,7 @@ $(document).ready(function () {
                 // console.log(response);
                 gifList = [];
                 populateGifList(response);
-                displayGifs();
+                displayGifs(false);
             });
     }
 
@@ -94,7 +94,7 @@ $(document).ready(function () {
             // console.log(favoriteList);
             $(".gif-display").empty();
             gifList = favoriteList;
-            displayGifs();
+            displayGifs(true);
         }
         else {
             $(".show-favorite-button").hide();
@@ -106,7 +106,8 @@ $(document).ready(function () {
      * Clear gifs from favorites
      */
     function clearFavorites() {
-        $(".gif-display").empty();
+        // $(".gif-display").empty();
+        clearGifs();
         $(".show-favorite-button").hide();
         $(".clear-favorite-button").hide();
         favoriteList = [];
@@ -133,7 +134,7 @@ $(document).ready(function () {
      * display retrieved gif images and details using a grid of four
      * images per column
      */
-    function displayGifs() {
+    function displayGifs(isFavorites) {
         $(".clear-button").show();
         var columnCtr = 1;
         var rowDiv = "";
@@ -148,7 +149,9 @@ $(document).ready(function () {
                 gifList[i].images.fixed_height_still.url);
             var cardBody = createCardBody(cardDiv);
             displayRating(cardBody, gifList[i].rating);
-            createFavoritesButton(cardBody, gifList[i].id, gifList[i].title);
+            if (!isFavorites) {
+                createFavoritesButton(cardBody, gifList[i].id, gifList[i].title);
+            }
 
             ++columnCtr;
             if (columnCtr > 4) {
