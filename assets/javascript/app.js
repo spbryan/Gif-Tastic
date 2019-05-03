@@ -8,6 +8,7 @@ $(document).ready(function () {
     // Global Variables
     var topicList = ["Sharks", "Whales", "Dolphins", "Starfish", "Stingray", "Crab"];
     var gifList = [];
+    var favoriteList = [];
     var apiKey = "TVW4zQpM1grLNNbe5y6eEuSnr6CD1Adm";
 
     /** This function renders Buttons for all entries in the 
@@ -32,12 +33,11 @@ $(document).ready(function () {
             topic + "&api_key=" + apiKey;
 
         $.ajax({
-            // url: buildURL(topic,"20"),
             url: queryURL,
             method: "GET"
         })
             .then(function (response) {
-                console.log(response);
+                // console.log(response);
                 gifList = [];
                 populateGifList(response);
                 displayGifs();
@@ -71,25 +71,36 @@ $(document).ready(function () {
      * Add a selected gif to a list of favorites
      */
     function addToFavorites() {
-        if ($(".favorites-list").is(":hidden")) {
-            $(".favorites-list").show();
+        if ($(".favorite-button").is(":hidden")) {
+            $(".favorite-button").show();
         }
+
         var id = $(this).attr("data-id");
-        var title = $(this).attr("data-title");
-        var option = $("<option>");
-        option.attr("class", "favorite-item");
-        option.attr("data-id", id);
-        option.text(title);
-        $(".favorites-list").append(option);
+        var queryURL = "https://api.giphy.com/v1/gifs/" +
+            id + "?api_key=" + apiKey;
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                favoriteList.push(response.data);
+            });
     }
 
     /**
-     * Retrieves a selected favorite gif
+     * Show gifs for any that are listed as a favorite
      */
-    function getFavorite() {
-        console.log(this);
-        var id = $(this).attr("data-id");
-        alert(id);
+    function showFavorites() {
+        if (favoriteList.length > 0) {
+            console.log(favoriteList);
+            $(".gif-display").empty();
+            gifList = favoriteList;
+            displayGifs();
+        }
+        else {
+            $(".favorite-button").hide();
+        }
     }
 
     /**
@@ -110,6 +121,24 @@ $(document).ready(function () {
     }
 
     /**
+     * Call api on each favorite ID to populate the Gif List
+     */
+    // function addFavoritesToGifList() {
+    //     gifList = [];
+    //     for (var i = 0; i < favoriteList.length; i++) {
+    //         var queryURL = "https://api.giphy.com/v1/gifs/" +
+    //         favoriteList[i] + "?api_key=" + apiKey;
+    //         $.ajax({
+    //             url: queryURL,
+    //             method: "GET"
+    //         })
+    //             .then(function (response) {
+    //                 gifList.push(response.data);
+    //             });
+    //     }
+    // }
+
+    /**
      * display retrieved gif images and details using a grid of four
      * images per column
      */
@@ -123,7 +152,7 @@ $(document).ready(function () {
             }
             var colDiv = createColumnElement(rowDiv);
             var cardDiv = createCardElement(colDiv);
-            createImageElement(cardDiv, 
+            createImageElement(cardDiv,
                 gifList[i].images.fixed_height.url,
                 gifList[i].images.fixed_height_still.url);
             var cardBody = createCardBody(cardDiv);
@@ -261,11 +290,14 @@ $(document).ready(function () {
     /** On-Click to start and stop the image */
     $(document).on("click", ".card-img-top", startStopGif);
 
+    /** On-Click for show favorites button */
+    $(document).on("click", ".show-favorite-button", showFavorites);
+
     /** On-Change for favorites dropdown option */
-    $(document).on("change", ".selectpicker", getFavorite);
+    // $(document).on("change", ".selectpicker", getFavorite);
     // $(".selectpicker").on("change", ".favorite-item", getFavorite);
 
-    $(".favorites-list").hide();
+    $(".favorite-button").hide();
     $(".clear-button").hide();
     renderButtons();
 });
