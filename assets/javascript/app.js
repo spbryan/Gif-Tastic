@@ -74,6 +74,9 @@ $(document).ready(function () {
             $(".clear-favorite-button").show();
         }
 
+        console.log(this);
+        $(this).hide();
+
         var id = $(this).attr("data-id");
         var queryURL = "https://api.giphy.com/v1/gifs/" +
             id + "?api_key=" + apiKey;
