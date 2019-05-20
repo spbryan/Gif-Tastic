@@ -3,6 +3,8 @@ Gif-tastic is a dynamic page that interacts with an API to display/play 10+ gifs
 
 This is a simple application created to exercise new skills using ajax as part of work for a course.
 
+url: https://spbryan.github.io/Gif-Tastic/
+
 How does it work?
 - This application makes a call to the Giphy API and displays 10 resulting gif images.
 - User can either use one of the pre-create buttons or can create one themselves by entering a topic in the text field and clicking "Create Button"
